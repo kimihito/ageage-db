@@ -1,0 +1,20 @@
+version: '3.7'
+
+services:
+  app: &base
+    build: .
+    tty: true
+    stdin_open: true
+    working_dir: /ageage-db
+    volumes:
+      - ./:/ageage-db
+  web:
+    <<: *base
+    command: 'yarn web:start'
+    ports:
+      - 3000:3000
+  crawler:
+    <<: *base
+    command: 'yarn crawler:dev'
+
+

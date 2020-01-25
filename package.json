@@ -1,0 +1,16 @@
+{
+  "name": "ageage-db",
+  "version": "0.1.0",
+  "main": "index.js",
+  "repository": "https://github.com/kimihito/ageage-db",
+  "license": "MIT",
+  "private": true,
+  "workspaces": ["src/*"],
+  "scripts": {
+    "tsc": "yarn web:tsc && yarn crawler:tsc",
+    "crawler:tsc": "yarn workspace crawler tsc",
+    "crawler:dev": "yarn workspace crawler dev:watch",
+    "web:start": "yarn workspace web start",
+    "web:tsc": "yarn workspace web tsc"
+  }
+}
