@@ -10,6 +10,7 @@
     "tsc": "yarn web:tsc && yarn crawler:tsc",
     "crawler:tsc": "yarn workspace crawler tsc",
     "crawler:dev": "yarn workspace crawler dev:watch",
+    "crawler:test": "yarn workspace crawler test",
     "web:start": "yarn workspace web start",
     "web:tsc": "yarn workspace web tsc"
   }
