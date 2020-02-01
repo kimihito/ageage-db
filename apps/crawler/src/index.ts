@@ -1,4 +1,4 @@
-import Crawler from './crawler'
+import { Crawler}from './crawler'
 import * as puppeteer from 'puppeteer'
 import * as path from 'path'
 import { pathToFileURL  } from 'url'

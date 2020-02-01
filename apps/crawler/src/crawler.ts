@@ -1,10 +1,11 @@
 import puppeteer from 'puppeteer'
 
-interface Restaurant {
-  name: string
+export interface Restaurant {
+  name: string,
+  address: string
 }
 
-export default class Crawler {
+export class Crawler {
   private launchArgs = {
     args: [
       '--no-sandbox',
@@ -12,31 +13,31 @@ export default class Crawler {
     ]
   }
 
-  private browser: puppeteer.Browser | null = null
-  private page: puppeteer.Page | null = null
+  private browser!: puppeteer.Browser
+  private page!: puppeteer.Page
 
-  constructor(private url: string) {}
+  constructor(private url: string) { }
 
   async close() {
-    await this.browser!.close()
-    this.browser = null
-    this.page = null
+    await this.browser.close()
   }
 
   async run(): Promise<(Restaurant)[]> {
     this.browser = await puppeteer.launch(this.launchArgs)
     this.page = await this.browser.newPage()
     await this.page.goto(this.url)
-    const title: (Restaurant)[] = await this.page.$$eval('.cnt > .item_01.area > h3', titleLists => {
-      return titleLists.filter<Element>((title): title is Required<Element> => { typeof title === element }).map(titleElement => {
-        if(titleElement) {
-          const restaurant: Restaurant = { name: titleElement.textContent  }
-          return restaurant
-        }
+    const restaurantElementHandlers = await this.page.$$('.cnt')
+    const restaurants: Restaurant[] = []
+    for (let restaurantElementHandler of restaurantElementHandlers) {
+      const name = await restaurantElementHandler.$eval('.item_01.area > h3', nameEl => nameEl.textContent!)
+      const address = await restaurantElementHandler.$eval('.item_02.area', restaurantInfo => {
+        return Array.from(restaurantInfo.childNodes).filter(childNode => !childNode.hasChildNodes() && !childNode.tagName === "br").map(node => node.textContent!)[1]
       })
-    })
+      const restaurant: Restaurant = { name: name, address: address }
+      restaurants.push(restaurant)
+    }
     await this.close();
-    console.log(title)
-    return title
+    console.log(restaurants)
+    return restaurants
   }
 }
