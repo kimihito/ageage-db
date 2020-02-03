@@ -5,7 +5,7 @@ services:
     build: .
     tty: true
     stdin_open: true
-    working_dir: /ageage-db
+    working_dir: /home/node/ageage-db
     volumes:
       - ./:/ageage-db
   web:
