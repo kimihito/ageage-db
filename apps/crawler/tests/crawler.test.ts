@@ -1,4 +1,5 @@
-import { Crawler, Restaurant } from '../src/crawler'
+import { Crawler } from '../src/crawler'
+import { Restaurant } from '../src/restaurant'
 import * as path from 'path'
 import { pathToFileURL  } from 'url'
 

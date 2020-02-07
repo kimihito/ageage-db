@@ -1,12 +1,5 @@
 import puppeteer from 'puppeteer'
-
-export interface Restaurant {
-  name: string,
-  address: string,
-  tel: string,
-  open?: string,
-  close?: string,
-}
+import { Restaurant } from './restaurant'
 
 export class Crawler {
   private launchArgs = {
@@ -43,7 +36,7 @@ export class Crawler {
             results.push(hoge.textContent)
             hoge = hoge.nextSibling
           }
-          return results.filter(v => v).join(' ').replace(/\n/g, '').trim()
+          return results.filter(v => v).join(',').replace(/\n/g, '').trim()
         })
         return resultArrays
       })
@@ -56,7 +49,7 @@ export class Crawler {
       }
       restaurants.push(restaurant)
     }
-    await this.close();
+    await this.close()
     console.log(restaurants)
     return restaurants
   }

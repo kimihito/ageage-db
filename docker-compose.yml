@@ -4,7 +4,6 @@ services:
   app: &base
     build: .
     tty: true
-    stdin_open: true
     working_dir: /home/node/ageage-db
     volumes:
       - ./:/ageage-db
