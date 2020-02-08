@@ -12,7 +12,8 @@
       "**/jest",
       "**/jest/**",
       "**/ts-jest",
-      "**/ts-jest/**"
+      "**/ts-jest/**",
+      "**/pupeeteer/**"
     ]
   },
   "scripts": {
