@@ -1,5 +1,5 @@
 import { Crawler } from './crawler'
-import { episodeCrawler } from './episodeCrawler'
+import { EpisodeCrawler } from './episodeCrawler'
 import { Restaurant } from './restaurant'
 import * as path from 'path'
 import puppeteer from 'puppeteer'
@@ -20,7 +20,7 @@ const main = async () => {
   try {
     const browser = await puppeteer.launch(launchArgs)
     const page = await browser.newPage()
-    const links = await new episodeCrawler(page).run()
+    const links = await new EpisodeCrawler(page, url).run()
 
     const restaurants: RestaurantCollection = []
     for (let link of links) {
