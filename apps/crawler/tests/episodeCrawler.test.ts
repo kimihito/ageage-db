@@ -86,10 +86,11 @@ const expected = [
       onAirDate: '2020-01-31'
     }
 ]
+
 const launchArgs: puppeteer.ChromeArgOptions = {
   args: [
+    '--disable-setuid-sandbox',
     '--no-sandbox',
-    '--disable-setuid-sandbox'
   ]
 }
 
@@ -97,6 +98,7 @@ test("episodeCrawler gets episodes", async () => {
   const browser = await puppeteer.launch(launchArgs)
   const page = await browser.newPage()
   const url = pathToFileURL(`${path.resolve('./tests/fixtures/index.htm')}`).toString()
-  const results: string[] = await new EpisodeCrawler(page, url).run()
+  const results = await new EpisodeCrawler(page, url).run()
+  await browser.close()
   expect(results).toEqual(expect.arrayContaining(expected))
 })
