@@ -34,3 +34,5 @@ services:
   crawler:
     <<: *base
     command: 'yarn crawler:dev'
+    ports:
+      - 9229:9229
