@@ -1,5 +1,7 @@
+import { Restaurant } from "./restaurant";
+
 export type Episode = {
-  link: string
-  category: string
+  theme: string
   onAirDate: string
+  restaurants?: Restaurant[]
 }

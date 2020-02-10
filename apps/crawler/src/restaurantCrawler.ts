@@ -1,27 +1,11 @@
 import puppeteer from 'puppeteer'
 import { Restaurant } from './restaurant'
 
-export class Crawler {
-  private launchArgs = {
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox'
-    ]
-  }
+export class RestaurantCrawler {
 
-  private browser!: puppeteer.Browser
-  private page!: puppeteer.Page
-
-  constructor(private url: string) { }
-
-  async close() {
-    await this.browser.close()
-  }
+  constructor(private page: puppeteer.Page) { }
 
   async run(): Promise<Restaurant[]> {
-    this.browser = await puppeteer.launch(this.launchArgs)
-    this.page = await this.browser.newPage()
-    await this.page.goto(this.url)
     const restaurantElementHandlers = await this.page.$$('.cnt')
     const restaurants: Restaurant[] = []
     for (let restaurantElementHandler of restaurantElementHandlers) {
@@ -49,7 +33,6 @@ export class Crawler {
       }
       restaurants.push(restaurant)
     }
-    await this.close()
     console.log(restaurants)
     return restaurants
   }

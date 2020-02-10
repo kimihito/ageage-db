@@ -1,25 +1,22 @@
 import puppeteer from 'puppeteer'
-import { Episode } from '../src/episode'
+import { Episode } from './episode'
+import { RestaurantCrawler } from './restaurantCrawler'
+import { Restaurant } from './restaurant'
 
 export class EpisodeCrawler {
-  private episodes: Episode[] = []
   private regxp = /^(\d{4}年\d{1,2}月\d{1,2}日).*?「(.*)」/
 
   constructor(private page: puppeteer.Page, private url: string) {}
 
-  async run(): Promise<Episode[]> {
+  async run(): Promise<Episode | null> {
     await this.page.goto(this.url)
-    const headings: string[] = await this.page.$$eval('h2', headings => headings.map(heading => heading.textContent).filter<string>((h): h is string => typeof h === 'string'))
-
-    this.episodes = headings.map((heading) => {
-      const matchedText = heading.match(this.regxp)
-      if (!matchedText) return null
-      const episode: Episode = {
-          link: 'hoge', onAirDate: matchedText[1], category: matchedText[2].replace(/第\d{1}弾/,'')
-      }
-      return episode
-    }).filter((episode): episode is Episode => !!episode)
-
-    return this.episodes
+    const heading: (string | null) = await this.page.$eval('#content > h2', heading => heading.textContent)
+    const matchedText = heading?.match(this.regxp)
+    if (!matchedText) return null
+    const restaurants: Restaurant[] = await new RestaurantCrawler(this.page).run()
+    const episode: Episode = {
+      onAirDate: matchedText[1], theme: matchedText[2].replace(/第\d{1}弾| .*部編/,'').trim(), restaurants: restaurants
+    }
+    return episode
   }
 }

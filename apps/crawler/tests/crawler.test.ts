@@ -1,7 +1,15 @@
-import { Crawler } from '../src/crawler'
+import { RestaurantCrawler } from '../src/restaurantCrawler'
 import { Restaurant } from '../src/restaurant'
 import * as path from 'path'
 import { pathToFileURL  } from 'url'
+import puppeteer from 'puppeteer'
+
+const launchArgs: puppeteer.ChromeArgOptions = {
+  args: [
+    '--disable-setuid-sandbox',
+    '--no-sandbox',
+  ]
+}
 
 const expected = [
   {
@@ -30,6 +38,9 @@ const expected = [
 
 test('crawler gets restaurants', async () => {
   const url = pathToFileURL(`${path.resolve('./tests/fixtures/detail.htm')}`).toString()
-  const results: Restaurant[] = await new Crawler(url).run()
+  const browser = await puppeteer.launch(launchArgs)
+  const page = await browser.newPage()
+  await page.goto(url)
+  const results: Restaurant[] = await new RestaurantCrawler(page).run()
   expect(results).toEqual(expect.arrayContaining(expected))
 })
