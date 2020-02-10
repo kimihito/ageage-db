@@ -1,7 +1,7 @@
 import puppeteer from 'puppeteer'
 import { Restaurant } from './restaurant'
 
-export class RestaurantCrawler {
+export class RestaurantsCrawler {
 
   constructor(private page: puppeteer.Page) { }
 
@@ -10,17 +10,20 @@ export class RestaurantCrawler {
     const restaurants: Restaurant[] = []
     for (let restaurantElementHandler of restaurantElementHandlers) {
       const name = await this.getName(restaurantElementHandler)
+      // if restaurant name does not exist, skip
+      if (!name || name === '') continue
+
       const restaurantInfo = await restaurantElementHandler.$eval('.item_02.area', restaurantInfoEl => {
         const childNodes = Array.from(restaurantInfoEl.childNodes).filter(childNode => childNode.hasChildNodes())
         const resultArrays = childNodes.map(node => {
           let results = []
-          let hoge = node.nextSibling
-          while (hoge) {
-            if (hoge.nodeName === "B") break
-            results.push(hoge.textContent)
-            hoge = hoge.nextSibling
+          let nextChildNode = node.nextSibling
+          while (nextChildNode) {
+            if (nextChildNode.nodeName === "B") break
+            results.push(nextChildNode.textContent?.trim())
+            nextChildNode = nextChildNode.nextSibling
           }
-          return results.filter(v => v).join(',').replace(/\n/g, '').trim()
+          return results.filter(v => v).join(', ').replace(/\n/g, '')
         })
         return resultArrays
       })
@@ -33,12 +36,12 @@ export class RestaurantCrawler {
       }
       restaurants.push(restaurant)
     }
-    console.log(restaurants)
     return restaurants
   }
 
-  public async getName(elementHandle: puppeteer.ElementHandle): Promise<string> {
-    const name: string = await elementHandle.$eval('.item_01.area > h3', nameEl => nameEl.textContent!)
+  public async getName(elementHandle: puppeteer.ElementHandle): Promise<string | null> {
+    const name = await elementHandle.$eval('.item_01.area', nameEl => nameEl.textContent)
+    if (name) return name.replace(/\n/g,'').trim()
     return name
   }
 }

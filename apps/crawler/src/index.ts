@@ -3,6 +3,7 @@ import { EpisodePathsCrawler } from './episodePathsCrawler'
 import * as path from 'path'
 import puppeteer from 'puppeteer'
 import { pathToFileURL  } from 'url'
+import { RestaurantsCrawler } from './restaurantsCrawler'
 
 const launchArgs: puppeteer.ChromeArgOptions = {
   args: [
@@ -32,13 +33,16 @@ const main = async () => {
     while (true) {
       console.log(currentIndexPage(index))
       const paths = await new EpisodePathsCrawler(page, currentIndexPage(index)).run()
-      console.log(paths)
+      index += 20
       for (let path of paths) {
-        const episode = await new EpisodeCrawler(page, currentPage(path)).run()
-        console.log(episode)
-        if (episode) episodes.push(episode)
+        await page.goto(currentPage(path))
+        const episode = await new EpisodeCrawler(page).run()
+        if (episode) {
+          episode.restaurants = await new RestaurantsCrawler(page).run()
+          episodes.push(episode)
+        }
       }
-      break
+      if (index === 20) break //debug
     }
 
     console.log(episodes)
@@ -47,8 +51,8 @@ const main = async () => {
 
     console.log('fin')
 
-  } catch {
-
+  } catch(error) {
+    console.error(error)
   }
 }
 
