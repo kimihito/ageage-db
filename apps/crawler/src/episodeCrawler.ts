@@ -11,17 +11,15 @@ export class EpisodeCrawler {
     await this.page.goto(this.url)
     const headings: string[] = await this.page.$$eval('h2', headings => headings.map(heading => heading.textContent).filter<string>((h): h is string => typeof h === 'string'))
 
-
     this.episodes = headings.map((heading) => {
       const matchedText = heading.match(this.regxp)
       if (!matchedText) return null
       const episode: Episode = {
-          link: 'hoge', onAirDate: matchedText[1], category: matchedText[2]
+          link: 'hoge', onAirDate: matchedText[1], category: matchedText[2].replace(/第\d{1}弾/,'')
       }
       return episode
     }).filter((episode): episode is Episode => !!episode)
 
     return this.episodes
-
   }
 }
