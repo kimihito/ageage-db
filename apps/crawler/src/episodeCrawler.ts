@@ -7,7 +7,7 @@ export class EpisodeCrawler {
   constructor(private page: puppeteer.Page) {}
 
   async run(): Promise<Episode | null> {
-    const heading: (string | null) = await this.page.$eval('#content > h2', heading => heading.textContent)
+    const heading: (string | null) = await this.page.$eval('#content > h2, h3', heading => heading.textContent)
     const matchedText = heading?.match(this.regxp)
     if (!matchedText) return null
     const episode: Episode = {
