@@ -1,13 +1,31 @@
 version: '3.7'
 
+volumes:
+  root_node_modules:
+    driver_opts:
+      type: none
+      o: bind
+      device: $PWD/node_modules
+  crawler_node_modules:
+    driver_opts:
+      type: none
+      o: bind
+      device: $PWD/apps/crawler/node_modules
+  web_node_modules:
+    driver_opts:
+      type: none
+      o: bind
+      device: $PWD/apps/web/node_modules
 services:
   app: &base
     build: .
     tty: true
-    stdin_open: true
-    working_dir: /ageage-db
+    working_dir: /home/node/ageage-db
     volumes:
-      - ./:/ageage-db
+      - ./:/home/node/ageage-db
+      - root_node_modules:/home/node/ageage-db/node_modules
+      - crawler_node_modules:/home/node/ageage-db/apps/crawler/node_modules
+      - web_node_modules:/home/node/ageage-db/apps/web/node_modules
   web:
     <<: *base
     command: 'yarn web:start'
@@ -16,5 +34,5 @@ services:
   crawler:
     <<: *base
     command: 'yarn crawler:dev'
-
-
+    ports:
+      - 9229:9229

@@ -9,11 +9,13 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/*
 
 USER node
+RUN mkdir -p /home/node/ageage-db
+WORKDIR /home/node/ageage-db
 
-# # Add user so we don't need --no-sandbox.
-# RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
-#   && mkdir -p /home/pptruser/Downloads \
-#   && chown -R pptruser:pptruser /home/pptruser
+COPY --chown=node:node ./package.json .
+COPY --chown=node:node ./apps/crawler/package.json ./apps/crawler
+COPY --chown=node:node ./apps/web/package.json ./apps/web/
+RUN yarn
 
-# # Run everything after as non-privileged user.
-# USER pptruser
+COPY --chown=node:node . .
+
