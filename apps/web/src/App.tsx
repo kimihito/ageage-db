@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import * as React from 'react';
+import { Episode, Restaurant } from './entities'
+import Header from './Header'
+import EpisodeList from './EpisodeList'
 import './App.css';
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const isDevelopment = process.env.NODE_ENV === "development"
+
+console.log(process.env)
+
+const db = require(`${isDevelopment ? './__mocks__/db.json' : ''}`)
+
+interface Props {}
+interface State {
+  episodes: Episode[],
+  restaurants: Restaurant[]
 }
 
-export default App;
+export default class App extends React.Component<Props, State> {
+  state = {
+    episodes: db["episodes"],
+    restaurants: db["restaurants"]
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <Header />
+        <EpisodeList episodes={this.state.episodes} />
+      </React.Fragment>
+    );
+  }
+}
