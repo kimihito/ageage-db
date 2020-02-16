@@ -38,3 +38,17 @@ test("episodeCrawelr gets episode from special layout", async () => {
   await browser.close()
   expect(result).toEqual(episode)
 })
+
+test("episodeCrawler gets episode from special episode", async () => {
+  const episode: Episode = {
+      theme: '忘新年会・スンドゥブ',
+      onAirDate: '2018年12月28日'
+    }
+  const browser = await puppeteer.launch(launchArgs)
+  const page = await browser.newPage()
+  const url = pathToFileURL(`${path.resolve('./tests/fixtures/multiple_themes_detail.htm')}`).toString()
+  await page.goto(url)
+  const result = await new EpisodeCrawler(page).run()
+  await browser.close()
+  expect(result).toEqual(episode)
+})

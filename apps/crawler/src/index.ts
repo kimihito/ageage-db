@@ -1,5 +1,6 @@
 import { EpisodeCrawler } from './episodeCrawler'
 import { EpisodePathsCrawler } from './episodePathsCrawler'
+import { Episode } from './episode'
 import * as path from 'path'
 import puppeteer from 'puppeteer'
 import { pathToFileURL  } from 'url'
@@ -11,6 +12,8 @@ const launchArgs: puppeteer.ChromeArgOptions = {
     '--no-sandbox',
   ]
 }
+
+const isDevelopment = process.env.NODE_ENV === "development"
 
 const BASEURL = `https://www.otv.co.jp/ageage/bk`
 
@@ -42,7 +45,7 @@ const main = async () => {
           episodes.push(episode)
         }
       }
-      if (index === 20) break //debug
+      if ((isDevelopment && index === 20)) break //debug
     }
 
     console.log(episodes)
