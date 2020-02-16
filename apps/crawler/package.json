@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "@types/jest": "^24.9.1",
+    "@types/lowdb": "^1.0.9",
     "@types/node": "^13.5.0",
     "@types/puppeteer": "^2.0.0",
     "jest": "^25.1.0",
