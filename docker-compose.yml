@@ -31,6 +31,15 @@ services:
     command: 'yarn web:start'
     ports:
       - 3000:3000
+    depends_on:
+      - json-server
+  json-server:
+    build: ./json-server/
+    volumes:
+      - ./json-server/db.json:/data/db.json
+    command: 'json-server --watch db.json --port 3001 --host 0.0.0.0'
+    ports:
+      - 3001:3001
   crawler:
     <<: *base
     command: 'yarn crawler:dev'
