@@ -9,6 +9,7 @@
     "dev:watch": "ts-node-dev --respawn src/index.ts",
     "dev:debug": "ts-node-dev --inspect=0.0.0.0:9229 --respawn -- src/index.ts",
     "clean": "rimraf dist/*",
+    "clean-build": "rimraf 'dist/**/!(*db.json)'",
     "tsc": "tsc",
     "test": "jest",
     "build": "npm-run-all clean tsc",

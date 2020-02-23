@@ -7,7 +7,7 @@ import FileAsync from 'lowdb/adapters/FileAsync'
 import { RestaurantsCrawler } from './restaurantsCrawler'
 
 
-const adapter = new FileAsync<Episode[]>('db.json')
+const adapter = new FileAsync<Episode[]>('dist/db.json')
 const db = lowdb(adapter)
 const launchArgs: puppeteer.ChromeArgOptions = {
   args: [
