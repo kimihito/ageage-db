@@ -5,7 +5,9 @@
       "apps/*"
     ],
     "nohoist": [
-      "**/jest**"
+      "**/jest**",
+      "**/firebase-admin/**",
+      "**/firebase-functions/**"
     ]
   },
   "scripts": {
