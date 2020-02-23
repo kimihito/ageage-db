@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>アゲアゲめし - 沖縄テレビ放送</title>
+<link href="../main.css?190727" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+ crossorigin="anonymous"></script>
+<script src="/nexstars/dist/remodal.js"></script>
+<link rel="stylesheet" href="/nexstars/dist/remodal.css">
+<link rel="stylesheet" href="/nexstars/dist/remodal-default-theme.css">
+
+
+<style>
+.fixed {
+background:#fdf5e6;
+border-bottom:2px solid #d61e1e;
+padding:5px;
+position: fixed;
+top: 0;
+left: 0;
+width:100%;
+z-index:100}
+</style>
+
+
+
+<link rel="alternate" type="application/rss+xml" title="アゲアゲめし" href="http://otv.co.jp/ageage/bk/rdfout.cgi" />
+</head>
+<body>
+
+<div class="header"></div>
+
+<div id="wrapper">
+
+<div>
+<h2>アゲアゲめし 毎週金曜日 19:00〜放送</h2>
+<!--<h3>再放送</h3>-->
+</div>
+
+<div style="margin:10px 0; text-align:center" ><a href="../" class="btn">アゲアゲめしトップへ</a></div>
+<div style="margin:10px 0; text-align:center" ><a href="https://www.youtube.com/watch?v=PAsEQ8OxhFE&list=PLHFaNbSe8FUYdI1x4biJdCeQDGjnph0ze" 
+ target="_blank" class="btn01">見逃し配信 <i class="fas fa-file-video"></i></a></div>
+
+<div id="content">
+		<a name="kiji170714" id="kiji170714">&#32;</a>
+		<h2>2017年7月14日（金）放送 <small>今週は「ステーキ」 </small></h2>
+		  <div class="cnt">
+<div class="item_01 area">
+<h3>ステーキハウス 四季 浦添店</h3>
+<figure><img src="/ageage/bk/file/170714_03_01.jpg" alt="Atacched File" class="frames"></figure>
+</div>
+<div class="item_02 area">
+<b>住所</b><br />
+浦添市伊祖2-4-5<br />
+<b>TEL</b><br />
+098-877-0429
+</div>
+</div>
+
+<hr>
+
+<div class="cnt">
+<div class="item_01 area">
+<h3>HAN'S 南城大里店</h3>
+<figure><img src="/ageage/bk/file/170714_01_01.jpg" alt="Atacched File" class="frames"></figure>
+</div>
+<div class="item_02 area">
+<b>住所</b><br />
+南城市大里字仲間735<br />
+<b>TEL</b><br />
+098-944-2983
+</div>
+</div>
+
+<hr>
+
+<div class="cnt">
+<div class="item_01 area">
+<h3>栄町ステーキ</h3>
+<figure><img src="/ageage/bk/file/170714_02_01.jpg" alt="Atacched File" class="frames"></figure>
+</div>
+<div class="item_02 area">
+<b>住所</b><br />
+那覇市安里388-5<br />
+<b>TEL</b><br />
+080-1736-6510
+</div>
+</div>
+
+<hr>
+   
+
+<p class="pagination clearfix">
+<a href="index.cgi?pg=170721&amp;pline=100&amp;lline=0" class="NaviBack">PREV</a>
+ <a href="index.cgi?mode=list&amp;pline=100&amp;lline=0" class="ToListView">過去の放送内容一覧</a>
+ </p>
+
+</div>
+
+
+<!---->
+
+<div class="remodal" data-remodal-id="modal01" role="dialog" aria-labelledby="　" data-remodal-options="closeOnOutsideClick: false">
+<button data-remodal-action="close" class="remodal-close" aria-label="Close" onClick="stopVideo()"></button>
+<h4 class="d01"><i class="fab fa-youtube-square"></i>アゲアゲめし</h4>
+<div class="iframe-content"><div id="video00"></div></div>
+<div style="margin:5px"></div>
+<button data-remodal-action="confirm" class="remodal-confirm" onClick="stopVideo()">閉じる</button>
+</div>
+
+<!---->
+
+
+</div>
+<p class="pagetop"><a href="#wrap">TOP↑</a></p>
+<div id="footer">&copy;OTV CO.,LTD All Rights Reserved.</div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+
+
+var ytPlayer;
+var ytArea = 'video00';
+var ytID = '';
+
+function onYouTubeIframeAPIReady() {
+    ytPlayer = new YT.Player(ytArea, {
+        videoId: ytID,
+        playerVars: {
+                rel: 0
+            },
+    });
+}
+ 
+
+$('.thumbnail').on('click', function () {
+    var url = $(this).attr('data-video-id');
+    ytPlayer.cueVideoById(url);
+});
+
+
+function stopVideo(){
+   ytPlayer.stopVideo();
+}
+
+</script>
+
+<script>
+var arg = new Object;
+var pair=location.search.substring(1).split('&');
+for(var i=0;pair[i];i++) {
+    var kv = pair[i].split('=');
+    arg[kv[0]]=kv[1];
+}
+
+function scroll() {
+  var nav = $("#content h2")
+  var navTop = nav.offset().top;
+  var navHeight = nav.height() + 10;
+  var showFlag = false;
+  nav.css('top', -navHeight + 'px');
+  $(window).scroll(function() {
+    var winTop = $(this).scrollTop();
+    if (winTop >= navTop) {
+      if (showFlag == false) {
+        showFlag = true;
+        nav.addClass('fixed').stop().animate({
+          'top': '0px'
+        }, 200);
+      }
+    } else if (winTop <= navTop) {
+      if (showFlag) {
+        showFlag = false;
+        nav.stop().animate({
+          'top': -navHeight + 'px'
+        }, 200, function() {
+          nav.removeClass('fixed');
+        });
+      }
+    }
+  });
+};
+
+if(arg.pg){scroll()} 
+//if(arg.pg || arg.prevcode ){scroll()} 
+</script>
+<script>
+$(document).ready(function() {
+ var pagetop = $('.pagetop');
+ $(window).scroll(function () {
+   if ($(this).scrollTop() > 100) {
+     pagetop.fadeIn();
+   } else {
+     pagetop.fadeOut();
+   }
+});
+pagetop.click(function () {
+ $('body, html').animate({ scrollTop: 0 }, 500);
+ return false;
+ });
+});
+</script>
+</body>
+</html>
