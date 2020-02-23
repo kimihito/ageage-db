@@ -1,0 +1,15 @@
+name: main
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 12
+        uses: actions/setup-node@v1
+        with:
+          node_version: 12
+      - name: Install
+        run: yarn install
+      - name: test
+        run: yarn run crawler:test
