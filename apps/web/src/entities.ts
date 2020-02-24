@@ -2,6 +2,7 @@ export type Episode = {
   id: number,
   theme: string,
   onAirDate: string
+  restaurants: Restaurant[]
 }
 
 export type Restaurant = {
@@ -10,6 +11,5 @@ export type Restaurant = {
   address: string,
   tel: string,
   open?: string,
-  close?: string,
-  episodeId: number
+  close?: string
 }

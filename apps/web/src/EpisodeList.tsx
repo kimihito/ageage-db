@@ -15,7 +15,7 @@ export default class EpisodeList extends React.Component<Props, State> {
                 <Container maxWidth="lg">
                     <Grid xs={12}>
                         <Typography>
-                            <Link href="https://www.otv.co.jp/ageage/bk" target="_blank" rel="noopener">
+                            <Link href="https://www.otv.co.jp/ageage/" target="_blank" rel="noopener">
                                 アゲアゲ飯
                             </Link>
                             で紹介されたお店をテーマごとに検索します

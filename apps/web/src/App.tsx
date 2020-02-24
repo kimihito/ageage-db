@@ -1,33 +1,29 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios'
 import { Episode, Restaurant } from './entities'
 import Header from './Header'
 import EpisodeList from './EpisodeList'
 import './App.css';
 
-const isDevelopment = process.env.NODE_ENV === "development"
+const App: React.FC = () => {
 
-console.log(process.env)
+  const [episodes, setEpisodes] = useState<Episode[]>([])
+  useEffect(() => {
+    const fetchData = async() => {
+      const result = await axios("https://kimihito.github.io/ageage-db/db.json")
+      setEpisodes(result.data.episodes)
+    }
 
-const db = require(`${isDevelopment ? './__mocks__/db.json' : ''}`)
+    fetchData()
+  }, [])
 
-interface Props {}
-interface State {
-  episodes: Episode[],
-  restaurants: Restaurant[]
+
+  return (
+    <React.Fragment>
+      <Header />
+      <EpisodeList episodes={episodes} />
+    </React.Fragment>
+  )
 }
 
-export default class App extends React.Component<Props, State> {
-  state = {
-    episodes: db["episodes"],
-    restaurants: db["restaurants"]
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        <Header />
-        <EpisodeList episodes={this.state.episodes} />
-      </React.Fragment>
-    );
-  }
-}
+export default App
