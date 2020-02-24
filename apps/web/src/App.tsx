@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
-import { Episode, Restaurant } from './entities'
+import { Episode, Restaurant, RestaurantWithEpisode } from './entities'
 import Header from './Header'
-import EpisodeList from './EpisodeList'
+import RestaurantList from './restaurantList'
 import './App.css';
 
 const App: React.FC = () => {
 
-  const [episodes, setEpisodes] = useState<Episode[]>([])
+  const [restaurants, setRestaurants] = useState<RestaurantWithEpisode[]>([])
   useEffect(() => {
     const fetchData = async() => {
       const result = await axios("https://kimihito.github.io/ageage-db/db.json")
-      setEpisodes(result.data.episodes)
+      const nestedRestaurants: RestaurantWithEpisode[] = result.data.episodes.map((e: Episode) => {
+        const restaurantsWithEpisode: RestaurantWithEpisode[] = e.restaurants.map((r: Restaurant) => {
+          delete e.restaurants
+          return { episode: e, ...r }
+        })
+        return restaurantsWithEpisode
+      })
+      setRestaurants(([] as RestaurantWithEpisode[]).concat(...nestedRestaurants))
     }
 
     fetchData()
@@ -21,7 +28,7 @@ const App: React.FC = () => {
   return (
     <React.Fragment>
       <Header />
-      <EpisodeList episodes={episodes} />
+      <RestaurantList restaurants={restaurants} />
     </React.Fragment>
   )
 }

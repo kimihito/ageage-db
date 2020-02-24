@@ -1,5 +1,4 @@
 export type Episode = {
-  id: number,
   theme: string,
   onAirDate: string
   restaurants: Restaurant[]
@@ -12,4 +11,9 @@ export type Restaurant = {
   tel: string,
   open?: string,
   close?: string
+}
+
+
+export type RestaurantWithEpisode = Restaurant & {
+  episode: Omit<Episode, "restaurants">
 }
