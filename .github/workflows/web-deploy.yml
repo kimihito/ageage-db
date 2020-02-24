@@ -1,8 +1,6 @@
 name: web-deploy
 on:
   push:
-    paths:
-      - 'apps/web/*'
     branches:
       - 'master'
 jobs:
@@ -59,4 +57,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          keep_files: true
           publish_dir: ./apps/web/build

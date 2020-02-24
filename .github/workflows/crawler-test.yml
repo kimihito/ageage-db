@@ -1,8 +1,5 @@
 name: crawler-test
-on:
-  push:
-    paths:
-      - 'apps/crawler/*'
+on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
