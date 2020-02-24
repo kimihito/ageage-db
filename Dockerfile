@@ -13,9 +13,12 @@ RUN mkdir -p /home/node/ageage-db
 WORKDIR /home/node/ageage-db
 
 COPY --chown=node:node ./package.json .
+COPY --chown=node:node ./yarn.lock .
+COPY --chown=node:node ./lerna.json .
+RUN yarn
 COPY --chown=node:node ./apps/crawler/package.json ./apps/crawler
 COPY --chown=node:node ./apps/web/package.json ./apps/web/
-RUN yarn
+RUN yarn lerna bootstrap
 
 COPY --chown=node:node . .
 

@@ -5,15 +5,7 @@
       "apps/*"
     ],
     "nohoist": [
-      "**/react-scripts",
-      "**/react-scripts/**",
-      "**/@generated",
-      "**/@generated/**",
-      "**/jest",
-      "**/jest/**",
-      "**/ts-jest",
-      "**/ts-jest/**",
-      "**/pupeeteer/**"
+      "**/jest**"
     ]
   },
   "scripts": {
@@ -23,5 +15,9 @@
     "crawler:test": "yarn workspace crawler test",
     "web:start": "yarn workspace web start",
     "web:tsc": "yarn workspace web tsc"
+  },
+  "name": "ageage-db",
+  "devDependencies": {
+    "lerna": "^3.20.2"
   }
 }
