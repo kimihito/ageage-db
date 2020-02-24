@@ -59,4 +59,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          keep_files: true
           publish_dir: ./apps/web/build
