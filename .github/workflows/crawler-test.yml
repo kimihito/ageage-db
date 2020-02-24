@@ -1,4 +1,4 @@
-name: test
+name: crawler-test
 on: [push]
 jobs:
   test:
