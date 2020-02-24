@@ -1,5 +1,8 @@
 name: web-test
-on: [push]
+on:
+  push:
+    paths:
+      - 'apps/web/*'
 jobs:
   test:
     runs-on: ubuntu-latest
