@@ -1,8 +1,6 @@
 name: web-deploy
 on:
   push:
-    paths:
-      - 'apps/web/*'
     branches:
       - 'master'
 jobs:
