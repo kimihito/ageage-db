@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import { Episode, Restaurant, RestaurantWithEpisode } from './entities'
-import Header from './Header'
-import RestaurantList from './restaurantList'
+import Header from './components/Header'
+import RestaurantList from './components/RestaurantList'
 import './App.css';
 
 const App: React.FC = () => {
