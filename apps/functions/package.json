@@ -3,9 +3,11 @@
   "scripts": {
     "lint": "tslint --project tsconfig.json",
     "build": "tsc",
-    "watch": "npm run build --watch",
-    "serve": "npm run watch && firebase serve --only functions --host 0.0.0.0",
-    "shell": "npm run build && firebase functions:shell",
+    "watch": "tsc -w",
+    "serve": "npm run watch | npm run firebase-serve",
+    "firebase-serve": "firebase serve --only functions --host 0.0.0.0 --token ${FIREBASE_TOKEN}",
+    "firebase-shell": "firebase functions:shell",
+    "shell": "npm run watch | npm run firebase-shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log"
