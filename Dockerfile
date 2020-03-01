@@ -1,4 +1,4 @@
-FROM node:12
+FROM node:10
 
 RUN apt-get update && \
   apt-get -y install xvfb gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 \
@@ -18,6 +18,7 @@ COPY --chown=node:node ./lerna.json .
 RUN yarn
 COPY --chown=node:node ./apps/crawler/package.json ./apps/crawler
 COPY --chown=node:node ./apps/web/package.json ./apps/web/
+COPY --chown=node:node ./apps/functions/package.json ./apps/functions
 RUN yarn lerna bootstrap
 
 COPY --chown=node:node . .
