@@ -15,13 +15,9 @@
     ]
   },
   "scripts": {
-    "tsc": "yarn web:tsc && yarn crawler:tsc",
-    "crawler:tsc": "yarn workspace crawler tsc",
-    "crawler:dev": "yarn workspace crawler dev:watch",
-    "crawler:test": "yarn workspace crawler test",
-    "web:start": "yarn workspace web start",
-    "web:tsc": "yarn workspace web tsc",
-    "web:test": "yarn workspace web test",
+    "tsc": "yarn web tsc && yarn crawler tsc",
+    "crawler": "yarn workspace crawler",
+    "web": "yarn workspace web",
     "functions": "yarn workspace functions"
   },
   "name": "ageage-db",

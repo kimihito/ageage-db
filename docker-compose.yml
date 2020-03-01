@@ -35,17 +35,19 @@ services:
       - functions_node_modules:/home/node/ageage-db/apps/functions/node_modules
   web:
     <<: *base
-    command: 'yarn web:start'
+    command: 'yarn start'
+    working_dir:  /home/node/ageage-db/apps/web
     ports:
       - 3000:3000
   crawler:
     <<: *base
-    command: 'yarn crawler:dev'
+    working_dir: /home/node/ageage-db/apps/crawler
+    command: 'yarn dev:watch'
     ports:
       - 9229:9229
   functions:
     <<: *base
-    working_dir: /home/node/ageage-db/functions
-    command: "yarn functions serve --token ${FIREBASE_TOKEN}"
+    working_dir: /home/node/ageage-db/apps/functions
+    command: "yarn serve"
     ports:
       - 5000:5000
